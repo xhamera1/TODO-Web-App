@@ -1,6 +1,8 @@
 package com.todo.rails.elite.starter.code.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
@@ -8,21 +10,25 @@ import java.time.LocalDate;
 @Table(name = "tasks")
 public class Task {
 
-	// TODO 19: Add Validation Error Messages
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull(message = "Title cannot be null")
+	@NotBlank(message = "Title cannot be blank")
 	@Column(name = "title", unique = true, nullable = false)
 	private String title;
 
+	@NotNull(message = "Description cannot be null")
+	@NotBlank(message = "Description cannot be blank")
 	@Column(name = "description", nullable = false)
 	private String description;
 
+	@NotNull(message = "Completed cannot be null")
 	@Column(name = "completed", nullable = false)
 	private boolean completed;
 
+	@NotNull(message = "Due date cannot be null")
 	@Column(name = "due_date", nullable = false)
 	private LocalDate dueDate;
 

@@ -1,5 +1,6 @@
 package com.todo.rails.elite.starter.code.controller.auth;
 
+import com.todo.rails.elite.starter.code.exceptions.ResourceAlreadyExistsException;
 import com.todo.rails.elite.starter.code.model.User;
 import com.todo.rails.elite.starter.code.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class AuthController {
 		try {
 			userService.addUser(user);
 			return new ModelAndView("redirect:/login");
-		} catch (RuntimeException ex) {
+		} catch (ResourceAlreadyExistsException ex) {
 			return new ModelAndView("redirect:/register");
 		}
 	}

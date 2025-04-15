@@ -1,5 +1,7 @@
 package com.todo.rails.elite.starter.code.service;
 
+import com.todo.rails.elite.starter.code.exceptions.ResourceAlreadyExistsException;
+import com.todo.rails.elite.starter.code.exceptions.ResourceNotFoundException;
 import com.todo.rails.elite.starter.code.model.User;
 import com.todo.rails.elite.starter.code.repository.UserRepository;
 import jakarta.validation.constraints.Email;
@@ -42,23 +44,18 @@ public class UserService {
 	 * @throws RuntimeException if a user with the same username or email already exists.
 	 */
 	// add a user
-	public User addUser(@NotNull(message = "User cannot be null") User user) {
-		log.debug("Attempting to add new user with username: {}", user.getUsername());
+	public User addUser(@NotNull(message = "User cannot be null") User user) throws ResourceAlreadyExistsException {
 		if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-			log.warn("Username '{}' already exists. Cannot add user.", user.getUsername());
-			throw new RuntimeException("Username already exists");
+			throw new ResourceAlreadyExistsException("User with username '" + user.getUsername() + "' already exists");
 		}
 		if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-			log.warn("Email '{}' already exists. Cannot add user.", user.getEmail());
-			throw new RuntimeException("Email already exists");
+			throw new ResourceAlreadyExistsException("User with email '" + user.getEmail() + "' already exists");
 		}
-		String rawPassword = user.getPassword();
-		user.setPassword(passwordEncoder.encode(rawPassword));
-		log.info("Encoded password for user: {}", user.getUsername());
+		user.setRoles("USER");
 
-		User savedUser = userRepository.save(user);
-		log.info("Successfully added user with username: {} and ID: {}", savedUser.getUsername(), savedUser.getId());
-		return savedUser;
+		String password = user.getPassword();
+		user.setPassword(passwordEncoder.encode(password));
+		return userRepository.save(user);
 	}
 
 	/**
@@ -73,12 +70,12 @@ public class UserService {
 			@NotNull(message = "Username cannot be null")
 			@NotBlank(message = "Username cannot be blank")
 			String username
-	) {
+	) throws ResourceNotFoundException{
 		log.debug("Attempting to retrieve user by username: {}", username);
 		return userRepository.findByUsername(username)
 				.orElseThrow(() -> {
 					log.warn("User not found with username: {}", username);
-					return new RuntimeException("User not found with username: " + username);
+					return new ResourceNotFoundException("User not found with username: " + username);
 				});
 	}
 
@@ -142,13 +139,6 @@ public class UserService {
 			log.warn("User not found with username: {}. Cannot update.", user.getUsername());
 			throw new RuntimeException("User not found for update with username: " + user.getUsername());
 		}
-		// Consider fetching user by ID and updating fields instead of saving the passed object directly
-		// User existingUser = getUserById(user.getId()); // Example: Fetch by ID
-		// existingUser.setEmail(user.getEmail()); // Example: Update specific fields
-		// existingUser.setRoles(user.getRoles());
-		// if (user.getPassword() != null && !user.getPassword().isEmpty()) { // Example: Update password if provided
-		//    existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
-		// }
 		User updatedUser = userRepository.save(user); // Saves the passed object
 		log.info("Successfully updated user with username: {}", updatedUser.getUsername());
 		return updatedUser;

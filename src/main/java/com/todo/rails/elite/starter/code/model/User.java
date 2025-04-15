@@ -1,6 +1,8 @@
 package com.todo.rails.elite.starter.code.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -10,15 +12,23 @@ public class User {
 	private Long id;
 
 	@Column(name = "username", unique = true, nullable = false)
+	@NotNull(message = "Username cannot be null")
+	@NotBlank(message = "Username cannot be blank")
 	private String username;
 
 	@Column(name = "password", nullable = false)
+	@NotNull(message = "Password cannot be null")
+	@NotBlank(message = "Password cannot be blank")
 	private String password;
 
 	@Column(name = "email", unique = true, nullable = false)
+	@NotNull(message = "Email cannot be null")
+	@NotBlank(message = "Email cannot be blank")
 	private String email;
 
 	@Column(name = "roles", nullable = false)
+	@NotNull(message = "Roles cannot be null")
+	@NotBlank(message = "Roles cannot be blank")
 	private String roles;
 
 	public User() {

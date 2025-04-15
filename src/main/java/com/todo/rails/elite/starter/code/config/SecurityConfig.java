@@ -106,17 +106,13 @@ public class SecurityConfig {
 						auth -> auth
 								.requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
 								.requestMatchers("/login", "/register").permitAll()
-								.requestMatchers("/api/tasks/**").authenticated()
-
-								//  authenticate all other requests
+								.requestMatchers("/api/tasks/**").permitAll()
 								.anyRequest().authenticated()
 				)
 				.formLogin(
 						form -> form
 								.loginPage("/login")
 								.defaultSuccessUrl("/", true)
-
-								// permit to all users
 								.permitAll()
 				)
 				.logout(
@@ -128,6 +124,7 @@ public class SecurityConfig {
 								.permitAll()
 				)
 				.userDetailsService(jpaUserDetailsService)
+				.csrf(AbstractHttpConfigurer::disable)
 				.httpBasic(AbstractHttpConfigurer::disable)
 				.build();
 	}
