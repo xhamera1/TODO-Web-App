@@ -141,4 +141,6 @@ Once running, the application will be available at http://localhost:8080.
 
 ## License
 
-This project is for educational and demonstration purposes as part of the AJSD course. No specific open-source license is declared here, so treat it accordingly or add a suitable license if needed.
+This project is licensed under the MIT License. 
+
+For detailed information, please refer to the [LICENSE](LICENSE.md) file.
