@@ -143,4 +143,4 @@ Once running, the application will be available at http://localhost:8080.
 
 This project is licensed under the MIT License. 
 
-For detailed information, please refer to the [LICENSE](LICENSE.md) file.
+For detailed information, please refer to the [LICENSE](LICENSE) file.
