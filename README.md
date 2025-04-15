@@ -30,27 +30,22 @@ This application allows users to register, log in, create tasks, mark them as co
 - Viewing pending and completed tasks
 - Simple statistics on total and completed tasks
 
-## Tech Stack
+## Tech Stack & Requirements
 
-- **Backend**: Java 21, Spring Boot 3.4.4  
-- **Build Tool**: Maven  
-- **Database**: MySQL  
-- **Frontend**: Thymeleaf  
-- **Security**: Spring Security  
+This project is built using a modern Java/Spring Boot stack with the following key components:
 
-## Technologies & Requirements
-
-- **Java 21**  
-- **Spring Boot 3.4.4**  
-  - spring-boot-starter-web  
-  - spring-boot-starter-thymeleaf  
-  - spring-boot-starter-data-jpa  
-  - spring-boot-starter-validation  
-  - spring-boot-starter-security  
-  - spring-boot-devtools  
-- **Maven** (to build and manage dependencies)
-- **MySQL** (database connector included)
-- **Thymeleaf** (templating engine)
+- **Backend**:  
+  - **Java 21**  
+  - **Spring Boot 3.4.4**, with essential dependencies:
+    - spring-boot-starter-web
+    - spring-boot-starter-thymeleaf
+    - spring-boot-starter-data-jpa
+    - spring-boot-starter-validation
+    - spring-boot-starter-security
+    - spring-boot-devtools
+- **Build Tool**: Maven 
+- **Database**: MySQL
+- **Frontend**: Thymeleaf
 
 ## Project Structure
 
